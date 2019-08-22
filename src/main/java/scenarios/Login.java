@@ -1,34 +1,24 @@
 package scenarios;
 
-import org.testng.annotations.Test;
-
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileDriver;
-import io.appium.java_client.TouchAction;
-
-import org.testng.annotations.BeforeTest;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
 
 public class Login {
 	
 	WebDriver driver;
 
-	@BeforeClass
+	@BeforeTest
 	public void setUp() throws MalformedURLException{
 		//Set up desired capabilities and pass the Android app-activity and app-package to Appium
 		
@@ -41,9 +31,11 @@ public class Login {
 		capabilities.setCapability("resetKeyboard", true);
 		//capabilities.setCapability("autoAcceptAlerts", true);
 		capabilities.setCapability("autoGrantPermissions", true); 
+		//capabilities.setCapability("noReset", true);
 		driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 	}
+
 	@Test
 	public void login() throws Exception {
 
@@ -69,30 +61,40 @@ public class Login {
 //		 alert.accept();
 		 WebElement img1= driver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.ImageView[1]"));
 		 img1.click();	
-		
-		 
-//		 List<WebElement>item =driver.findElements(By.className("android.widget.ImageView"));
-//		 item.get(1).click();
 		 WebElement addtocart1= driver.findElement(By.id("com.savorly.dev:id/add_to_cart"));
-		 addtocart1.click();
+		 addtocart1.click(); 
 		 Thread.sleep(2000);
-		 WebElement img2= driver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ImageView[1]"));
-		 img2.click(); 
-		 WebElement addtocart2= driver.findElement(By.id("com.savorly.dev:id/add_to_cart"));
-		 addtocart2.click();		 
+//		 WebElement img2= driver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.LinearLayout/android.support.v7.widget.RecyclerView/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ImageView[1]"));
+//		 img2.click(); 
+//		 WebElement addtocart2= driver.findElement(By.id("com.savorly.dev:id/add_to_cart"));
+//		 addtocart2.click();
+		 
 		 WebElement chkoutbtn= driver.findElement(By.id("com.savorly.dev:id/continue_to_checkout"));
 		 chkoutbtn.click();
+		Thread.sleep(3000);
+		 WebElement ccdetails=driver.findElement(By.id("com.savorly.dev:id/imageView5"));
+		 ccdetails.click();
+		 
+//		 List <WebElement>  ele=driver.findElements(By.className("android.widget.EditText"));
+//		 ele.get(0).sendKeys("test");
+//		 ele.get(1).sendKeys("5555555555554444");
+		
+		 
+		// driver.switchTo().frame(0);
+		 WebElement holdername= driver.findElement(By.id("com.savorly.dev:id/cardHolderName"));
+		 holdername.clear();
+		 holdername.sendKeys("test");
+		 driver.findElement(By.id("com.savorly.dev:id/cardNumberEditText")).clear();
+		 driver.findElement(By.id("com.savorly.dev:id/cardNumberEditText")).sendKeys("5555555555554444");
+		 WebElement cvvno =driver.findElement(By.id("com.savorly.dev:id/cardCVCEditText"));
+		 cvvno.sendKeys("345");
+		 WebElement savebtn=driver.findElement(By.id("com.savorly.dev:id/add_card_btn"));
+		 savebtn.click();
+		 WebElement plcorder=driver.findElement(By.id("com.savorly.dev:id/place_order"));
+		 plcorder.click();
+		 
 	}
 	
-	
-//	public void allowLocatioPopUp(){
-//		 while (driver.findElements(MobileBy.xpath("//*[@class='android.widget.Button'][2]")).size()>0) 
-//
-//		 {  driver.findElement(MobileBy.xpath("//*[@class='android.widget.Button'][2]")).click();
-//		 }
 
-//  @AfterTest
-//  public void afterTest() {
-//  }
 	}
 
